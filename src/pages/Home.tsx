@@ -1,9 +1,19 @@
 import { Button } from "antd";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
+
   return (
     <div>
       <Header />
