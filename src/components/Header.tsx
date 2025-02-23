@@ -56,12 +56,13 @@ const Header = () => {
         ) : (
           <div className="flex items-center gap-2">
             <Button
-              onClick={() => navigate("/templatesPage")}
+              onClick={() => navigate("/login")}
               className="px-6 !border-2 xl:min-w-[200px] !h-[50px] "
             >
               Login
             </Button>
             <Button
+              onClick={() => navigate("/register")}
               type="primary"
               className="xl:min-w-[200px]  !text-[20px] !h-[50px] "
             >
