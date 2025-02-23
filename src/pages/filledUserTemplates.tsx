@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Table, Input, Typography, Tag, message } from "antd";
+import { Table, Input, Typography, Tag, message, Card } from "antd";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { db } from "../services/firebase";
-import { Search, Calendar, Mail, FileText } from "lucide-react";
+import { Search, Calendar, Mail, FileText, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import Header from "../components/Header";
@@ -152,7 +152,7 @@ export default function FilledTemplates() {
               </p>
             </div>
 
-            <div className="mb-6 flex flex-col sm:flex-row gap-4">
+            <div className="mb-6">
               <Input
                 placeholder="Search by email or answers..."
                 prefix={<Search className="h-4 w-4 text-gray-400" />}
@@ -163,17 +163,81 @@ export default function FilledTemplates() {
               />
             </div>
 
-            <Table
-              dataSource={filteredTemplates}
-              columns={columns}
-              rowKey="id"
-              loading={isLoading}
-              pagination={{
-                pageSize: 10,
-                showSizeChanger: true,
-                showTotal: (total) => `Total ${total} items`,
-              }}
-            />
+            <div className="xl:block hidden">
+              <Table
+                dataSource={filteredTemplates}
+                columns={columns}
+                rowKey="id"
+                loading={isLoading}
+                pagination={{
+                  pageSize: 10,
+                  showSizeChanger: true,
+                  showTotal: (total) => `Total ${total} items`,
+                }}
+                className="[&_.ant-table-thead_.ant-table-cell]:bg-gray-50 [&_.ant-table-thead_.ant-table-cell]:font-medium"
+              />
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="xl:hidden block space-y-4">
+              {isLoading ? (
+                <div className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <Card key={i} loading className="border border-gray-100" />
+                  ))}
+                </div>
+              ) : (
+                filteredTemplates.map((template) => (
+                  <div className="my-3">
+                    <Card
+                      key={template.id}
+                      className="border border-gray-100 hover:border-blue-200 transition-colors cursor-pointer group"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="space-y-4 flex-1">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-gray-600">
+                              <Calendar className="h-4 w-4" />
+                              <span>{formatDate(template.submittedAt)}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-gray-600">
+                              <Mail className="h-4 w-4" />
+                              <span>{template.submittedBy}</span>
+                            </div>
+                          </div>
+
+                          <Tag
+                            icon={<FileText className="h-3 w-3 mr-1" />}
+                            color="blue"
+                            className="px-2 py-1"
+                          >
+                            {template.templateId}
+                          </Tag>
+
+                          {template.answers.length > 0 && (
+                            <div className="border-l-2 border-blue-200 pl-3 mt-4">
+                              <p className="text-sm font-medium text-gray-600 mb-1">
+                                {template.answers[0].question}
+                              </p>
+                              <p className="text-sm text-gray-900">
+                                {template.answers[0].answer}
+                              </p>
+                              {template.answers.length > 1 && (
+                                <p className="text-sm text-gray-500 mt-2">
+                                  +{template.answers.length - 1} more answers
+                                </p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                      </div>
+                    </Card>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>
