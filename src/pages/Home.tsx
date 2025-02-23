@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <div>
+      <div className="max-w-7xl flex xl:flex-row flex-col py-5 items-center mx-auto">
         <div className="px-16">
           <p className="text-[46px] font-bold">Welcome!</p>
           <p className="text-gray-500 text-[20px]">
@@ -30,7 +30,12 @@ const Home = () => {
             View templates
           </Button>
         </div>
-        <div></div>
+        <div>
+          <img
+            src="https://img.freepik.com/premium-vector/online-testing-concept-illustration-with-characters-flat-design_198565-172.jpg"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   );
