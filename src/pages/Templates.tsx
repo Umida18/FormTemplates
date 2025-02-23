@@ -32,6 +32,7 @@ export default function TemplatesPage() {
     queryKey: ["createTemplates"],
     queryFn: fetchTemplates,
   });
+  console.log("error", error);
 
   if (isLoading)
     return (
