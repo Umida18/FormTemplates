@@ -8,6 +8,7 @@ import CreateTemplate from "./pages/CreateTemplates";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import EditTemplates from "./pages/FillTemplates";
 import UserFilledTemplates from "./pages/filledUserTemplates";
+import Statistics from "./pages/Stats";
 const queryClient = new QueryClient();
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/templatesPage" element={<TemplatesPage />} />
             <Route path="/createTemplates" element={<CreateTemplate />} />
             <Route path="/editTemplates/:id" element={<EditTemplates />} />
+            <Route path="/statistics" element={<Statistics />} />
             <Route
               path="/filledUserTemplates/:id"
               element={<UserFilledTemplates />}

@@ -1,9 +1,9 @@
 import { Button } from "antd";
-import { User } from "firebase/auth";
 import { BarChart3, ClipboardEdit, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../services/firebase";
+import { User } from "firebase/auth";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const Header = () => {
             <span>Filled Templates</span>
           </Link>
           <Link
-            to="/stats"
+            to="/statistics"
             className="flex items-center space-x-2 text-[#181836] hover:text-[#1a1b5e]"
           >
             <BarChart3 className="h-4 w-4" />
